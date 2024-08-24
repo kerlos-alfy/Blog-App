@@ -25,7 +25,7 @@ exports.register = asyncHandler(async (req, res) => {
   newUser.save();
   // eslint-disable-next-line no-undef
   const SECRET_KEY = process.env.SECRET_KEY;
-  const token = await jwt.sign({ email: newUser.email, role: newUser.role }, SECRET_KEY, {
+  const token = await jwt.sign({ id: newUser._id, email: newUser.email, role: newUser.role }, SECRET_KEY, {
     expiresIn: '30d',
   });
   res.json({ message: 'User created', newUser, token });
@@ -43,7 +43,7 @@ exports.login = asyncHandler(async (req, res) => {
   }
 
   const token = jwt.sign(
-    { email: user.email, role: user.role },
+    { id: user._id, email: user.email, role: user.role },
     // eslint-disable-next-line no-undef
     process.env.SECRET_KEY,
     { expiresIn: '30d' }

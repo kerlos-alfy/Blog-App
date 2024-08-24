@@ -1,31 +1,35 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
-	},
-	content: {
-		type: String,
-		required: true,
-	},
-	author: {
-		type: String,
-		required: true,
-	},
-	tags: [String], // An array of strings for tags
-	published: {
-		type: Boolean,
-		default: false,
-	},
-	publishedDate: {
-		type: Date,
-		default: Date.now,
-	},
-	views: {
-		type: Number,
-		default: 0,
-	},
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: String,
+    required: true,
+  },
+  tags: [String], // An array of strings for tags
+  published: {
+    type: Boolean,
+    default: false,
+  },
+  publishedDate: {
+    type: Date,
+    default: Date.now,
+  },
+  views: {
+    type: Number,
+    default: 0,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
-module.exports = mongoose.model("Article", articleSchema);
+module.exports = mongoose.model('Article', articleSchema);

@@ -5,6 +5,7 @@ const Article = require('../models/articleModel');
 // @route   POST  /api/v1/articles
 // @access  Public
 exports.createArticle = asyncHandler(async (req, res) => {
+  const createdBy = req.user.id;
   const { title, content, author, tags, published } = req.body;
   const article = await new Article({
     title,
@@ -12,7 +13,9 @@ exports.createArticle = asyncHandler(async (req, res) => {
     author,
     tags,
     published,
+    createdBy: createdBy,
   });
+
   article.save();
   res.json(article);
 });
@@ -32,7 +35,7 @@ exports.getAllArticle = asyncHandler(async (req, res) => {
 // @route   GET  /api/v1/articles/:id
 // @access  Public
 exports.getArticleById = asyncHandler(async (req, res) => {
-  const article = await Article.findById(req.params.id);
+  const article = await Article.findById(req.params.id).populate({ path: 'createdBy', select: 'name' });
   if (!article) return res.status(404).json({ message: 'Article not found' });
   res.json({ data: article });
 });
