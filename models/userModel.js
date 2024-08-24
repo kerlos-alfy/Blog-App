@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       enum: ['admin', 'user', 'moderator'],
       default: 'user',
     },
+    avatar: {
+      type: String,
+      default: 'default.jpg',
+    },
   },
   { timestamps: true }
 );

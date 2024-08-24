@@ -12,6 +12,7 @@ const morgan = require('morgan');
 const dbConnection = require('./configs/dbConnection');
 const articleRoute = require('./routes/articleRoute');
 const userRoute = require('./routes/userRoute');
+const path = require('path');
 /*--------------------------------------------------
 |                🎉  End of Imports                    |
 |--------------------------------------------------*/
@@ -19,14 +20,18 @@ const userRoute = require('./routes/userRoute');
 // Todo : Connect to Database
 dbConnection();
 
+// Todo : Express Integration
+
+app.use(express.json());
+// eslint-disable-next-line no-undef
+app.use(express.static(path.join(__dirname, 'images')));
+
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
   // eslint-disable-next-line no-undef
   console.log(`mode: ${process.env.NODE_ENV}`.italic.cyan);
 }
-
-app.use(express.json());
 
 // Routes
 
