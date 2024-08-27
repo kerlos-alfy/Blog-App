@@ -1,32 +1,35 @@
 {
-	"name": "blog-app",
-	"version": "1.0.0",
-	"description": "Blog App",
-	"main": "app.js",
-	"scripts": {
-		"dev": "nodemon app.js"
-	},
-	"author": "kerlos-alfy",
-	"license": "ISC",
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"blog-app": "file:",
-		"colors": "^1.4.0",
-		"dotenv": "^16.4.5",
-		"express": "^4.19.2",
-		"express-async-handler": "^1.2.0",
-		"jsonwebtoken": "^9.0.2",
-		"mongoose": "^8.5.3",
-		"morgan": "^1.10.0",
-		"multer": "^1.4.5-lts.1",
-		"winston": "^3.14.2"
-	},
-	"devDependencies": {
-		"@eslint/js": "^9.9.1",
-		"eslint": "^9.9.1",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-prettier": "^5.2.1",
-		"globals": "^15.9.0",
-		"prettier": "^3.3.3"
-	}
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "Blog App",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "prod": "set NODE_ENV=production&& node app.js"
+  },
+  "author": "kerlos-alfy",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "blog-app": "file:",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^7.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  }
 }

@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Article = require('../models/articleModel');
-
+const ApiError = require('../utils/apiError');
 // @desc    Create Article
 // @route   POST  /api/v1/articles
 // @access  Public
@@ -17,7 +17,7 @@ exports.createArticle = asyncHandler(async (req, res) => {
   });
 
   article.save();
-  res.json(article);
+  res.status(200).json(article);
 });
 
 // @desc    Get All Articles
@@ -34,16 +34,18 @@ exports.getAllArticle = asyncHandler(async (req, res) => {
 // @desc    Get Article By ID
 // @route   GET  /api/v1/articles/:id
 // @access  Public
-exports.getArticleById = asyncHandler(async (req, res) => {
+exports.getArticleById = asyncHandler(async (req, res, next) => {
   const article = await Article.findById(req.params.id).populate({ path: 'createdBy', select: 'name' });
-  if (!article) return res.status(404).json({ message: 'Article not found' });
-  res.json({ data: article });
+  if (!article) {
+    return next(new ApiError('Article not found', 404));
+  }
+  res.status(200).json({ data: article });
 });
 
 // @desc    Update Article By ID
 // @route   PATCH  /api/v1/articles/:id
 // @access  Public
-exports.updateArticle = asyncHandler(async (req, res) => {
+exports.updateArticle = asyncHandler(async (req, res, next) => {
   const { title, content, author, tags, published } = req.body;
 
   const article = await Article.findByIdAndUpdate(
@@ -51,15 +53,19 @@ exports.updateArticle = asyncHandler(async (req, res) => {
     { title, content, author, tags, published },
     { new: true }
   );
-  if (!article) return res.status(404).json({ message: 'Article not found' });
+  if (!article) {
+    return next(new ApiError('Article not found', 404));
+  }
   res.json({ data: article });
 });
 
 // @desc    Delete Article By ID
 // @route   DELETE  /api/v1/articles/:id
 // @access  Public
-exports.deleteArticle = asyncHandler(async (req, res) => {
+exports.deleteArticle = asyncHandler(async (req, res, next) => {
   const article = await Article.findByIdAndDelete(req.params.id);
-  if (!article) return res.status(404).json({ message: 'Article not found' });
+  if (!article) {
+    return next(new ApiError('Article not found', 404));
+  }
   res.json({ Deleted: article });
 });
